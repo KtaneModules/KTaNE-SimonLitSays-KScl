@@ -455,8 +455,8 @@ public class SimonLitSays : MonoBehaviour
 	{
 		thisLogID = ++globalLogID;
 
-        bombModule.OnNeedyActivation += OnNeedyActivation;
-        bombModule.OnNeedyDeactivation += OnNeedyDeactivation;
+		bombModule.OnNeedyActivation += OnNeedyActivation;
+		bombModule.OnNeedyDeactivation += OnNeedyDeactivation;
 		bombModule.OnTimerExpired += OnTimerExpired;
 
 		// Hook into bomb info, for lights.
@@ -518,21 +518,21 @@ public class SimonLitSays : MonoBehaviour
 	{
 		Match mt;
 
-        if ((mt = Regex.Match(command, @"^\s*(?:press|select)?\s*(\d)\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
-        {
-        	int buttonToPress = Convert.ToInt32(mt.Groups[1].ToString());
-        	if (buttonToPress >= 1 && buttonToPress <= 4)
-        	{
-        		yield return null;
+		if ((mt = Regex.Match(command, @"^\s*(?:press|select)?\s*(\d)\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)).Success)
+		{
+			int buttonToPress = Convert.ToInt32(mt.Groups[1].ToString());
+			if (buttonToPress >= 1 && buttonToPress <= 4)
+			{
+				yield return null;
 
-        		// Be very clear in TP if a strike is earned for listening to the wrong person.
-        		if (answer == 0)
+				// Be very clear in TP if a strike is earned for listening to the wrong person.
+				if (answer == 0)
 					yield return "strikemessage pressing a button when Simon didn't tell you to.";
 
-        		yield return new KMSelectable[] { kpSelects[buttonToPress - 1] };
-        	}
-        }
-        yield break;
+				yield return new KMSelectable[] { kpSelects[buttonToPress - 1] };
+			}
+		}
+		yield break;
 	}
 
 	void TwitchHandleForcedSolve()
