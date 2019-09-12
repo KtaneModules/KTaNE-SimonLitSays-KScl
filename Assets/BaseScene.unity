@@ -395,11 +395,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114012121805122054, guid: c5fe7340d526a460c8e209882ab2ab4a,
-        type: 2}
-      propertyPath: CountdownTime
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5fe7340d526a460c8e209882ab2ab4a, type: 2}
   m_IsPrefabParent: 0
