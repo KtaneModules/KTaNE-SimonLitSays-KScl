@@ -387,6 +387,7 @@ public class SimonLitSays : MonoBehaviour
 
 	void OnNeedyDeactivation()
 	{
+		bombModule.SetResetDelayTime(99999f, 99999f);
 		isDisabled = true;
 		if (isLive)
 		{
@@ -503,6 +504,11 @@ public class SimonLitSays : MonoBehaviour
 		mainScreen.color = currentScreenColor;
 
 		StartCoroutine(HandleLight());
+	}
+
+	void Start()
+	{
+		bombModule.SetResetDelayTime(24f, 36f);
 	}
 
 
