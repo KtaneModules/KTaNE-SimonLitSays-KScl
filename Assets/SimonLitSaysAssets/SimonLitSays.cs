@@ -11,8 +11,8 @@ using RNG = UnityEngine.Random;
 public class SimonLitSays : MonoBehaviour
 {
 	// Standardized logging
-	private static int globalLogID = 0;
-	private int thisLogID;
+	private static int globalLoggingID = 0;
+	private int thisLoggingID;
 
 	// Twitch Plays
 	protected bool TwitchPlaysActive;
@@ -348,7 +348,7 @@ public class SimonLitSays : MonoBehaviour
 		if (cleanupCoroutine != null)
 			StopCoroutine(cleanupCoroutine);
 
-		Debug.LogFormat("[Simon Literally Says #{0}] ----------", thisLogID);
+		Debug.LogFormat("[Simon Literally Says #{0}] ----------", thisLoggingID);
 
 		if (didSimonSayIt < 50) // 50% chance Simon said it
 			name = "Simon";
@@ -368,12 +368,12 @@ public class SimonLitSays : MonoBehaviour
 		else
 			mainScreen.text = String.Format("{0} says:\n{1}", name, command);
 
-		Debug.LogFormat("[Simon Literally Says #{0}] {2} says: {1}", thisLogID, command, name.Equals("") ? "Nobody" : name);
+		Debug.LogFormat("[Simon Literally Says #{0}] {2} says: {1}", thisLoggingID, command, name.Equals("") ? "Nobody" : name);
 
 		if (answer != 0)
-			Debug.LogFormat("[Simon Literally Says #{0}] Simon said it. I expect you to press {1}.", thisLogID, DebugValidButtons());			
+			Debug.LogFormat("[Simon Literally Says #{0}] Simon said it. I expect you to press {1}.", thisLoggingID, DebugValidButtons());			
 		else
-			Debug.LogFormat("[Simon Literally Says #{0}] Simon didn't say it. I expect you to let the timer expire.", thisLogID);
+			Debug.LogFormat("[Simon Literally Says #{0}] Simon didn't say it. I expect you to let the timer expire.", thisLoggingID);
 
 		for (int i = 0; i < kpAnims.Length; ++i)
 			kpAnims[i].Play("KeypadAppear", 0, 0);
@@ -406,11 +406,11 @@ public class SimonLitSays : MonoBehaviour
 	{
 		if (answer != 0)
 		{
-			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Timer expired on Simon's request.", thisLogID);		
+			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Timer expired on Simon's request.", thisLoggingID);		
 			bombModule.HandleStrike();
 		}
 		else
-			Debug.LogFormat("[Simon Literally Says #{0}] SAFE: Timer expired as expected.", thisLogID);
+			Debug.LogFormat("[Simon Literally Says #{0}] SAFE: Timer expired as expected.", thisLoggingID);
 
 		for (int i = 0; i < kpAnims.Length; ++i)
 			kpAnims[i].Play("KeypadHide", 0, 0);
@@ -429,13 +429,13 @@ public class SimonLitSays : MonoBehaviour
 		bombAudio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, keypad[button].transform);
 
 		if (answer == 0)
-			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Pressed button {1} instead of ignoring the request.", thisLogID, button + 1);
+			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Pressed button {1} instead of ignoring the request.", thisLoggingID, button + 1);
 		else if ((answer & (1 << button)) == 0)
-			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Pressed an incorrect button, {1}.", thisLogID, button + 1);
+			Debug.LogFormat("[Simon Literally Says #{0}] STRIKE: Pressed an incorrect button, {1}.", thisLoggingID, button + 1);
 		else
 		{
 			strike = false;
-			Debug.LogFormat("[Simon Literally Says #{0}] SAFE: Pressed a correct button, {1}.", thisLogID, button + 1);
+			Debug.LogFormat("[Simon Literally Says #{0}] SAFE: Pressed a correct button, {1}.", thisLoggingID, button + 1);
 		}
 
 		if (strike)
@@ -454,7 +454,7 @@ public class SimonLitSays : MonoBehaviour
 
 	void Awake()
 	{
-		thisLogID = ++globalLogID;
+		thisLoggingID = ++globalLoggingID;
 
 		bombModule.OnNeedyActivation += OnNeedyActivation;
 		bombModule.OnNeedyDeactivation += OnNeedyDeactivation;
@@ -465,9 +465,9 @@ public class SimonLitSays : MonoBehaviour
 			if (lightsAreOn != state)
 			{
 				if (!state)
-					Debug.LogFormat("[Simon Literally Says #{0}] Because the lights have turned off, the timer is now paused.", thisLogID);
+					Debug.LogFormat("[Simon Literally Says #{0}] Because the lights have turned off, the timer is now paused.", thisLoggingID);
 				else
-					Debug.LogFormat("[Simon Literally Says #{0}] Lights have turned back on, timer resumed.", thisLogID);
+					Debug.LogFormat("[Simon Literally Says #{0}] Lights have turned back on, timer resumed.", thisLoggingID);
 				lightsAreOn = state;
 			}
 		};
@@ -543,7 +543,7 @@ public class SimonLitSays : MonoBehaviour
 
 	void TwitchHandleForcedSolve()
 	{
-		Debug.LogFormat("[Simon Literally Says #{0}] Needy is being disabled by Twitch Plays.", thisLogID);
+		Debug.LogFormat("[Simon Literally Says #{0}] Needy is being disabled by Twitch Plays.", thisLoggingID);
 		OnNeedyDeactivation();
 	}
 }
